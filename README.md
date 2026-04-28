@@ -1,66 +1,130 @@
 # ECommerceApp Vize Projesi
 
-Bu proje, C# ile geliştirilmiş basit bir e-ticaret uygulamasıdır. 
-Projede kullanıcı ürün seçebilir, sepete ürün ekleyebilir, sipariş verebilir ve ödeme işlemi yapabilir.
+## 📌 Proje Tanımı
 
-Projenin amacı, yazılım test türlerini uygulamalı olarak göstermektir. 
-Bu yüzden sistemin içine bilinçli olarak bazı hatalar eklenmiştir. 
-Bu hatalar NUnit testleri ile yakalanmaktadır.
+Bu proje, C# dili kullanılarak geliştirilmiş basit bir e-ticaret sistemidir. Kullanıcılar ürün seçebilir, sepete ekleyebilir, sipariş verebilir ve ödeme işlemi gerçekleştirebilir.
 
-# Projenin Senaryosu
+Projenin amacı, yazılım test türlerini (Unit, Black Box, Gray Box, Integration) uygulamalı olarak göstermek ve sistemde bulunan hataların testler ile nasıl yakalandığını göstermektir.
 
-Bir e-ticaret sisteminde kullanıcı ürünleri sepete ekler, sepet toplamını görür, sipariş verir ve ödeme yapar. 
-Sistem temel olarak ürün, sepet, sipariş ve ödeme sınıflarından oluşmaktadır.
+---
 
-Bilerek Bırakılan Hatalar
+## 🛠 Kullanılan Teknolojiler
 
-Projede testlerin yakalaması için bazı hatalar bilerek bırakılmıştır:
+* C#
+* .NET
+* NUnit
+* GitHub
 
-Stokta olmayan ürün sepete eklenebiliyor.
-Sepette olmayan ürün silinmek istendiğinde hata fırlatılmıyor.
-Sepet toplamı hesaplanırken toplam tutara fazladan 10 TL ekleniyor.
-Negatif ödeme tutarı sistem tarafından kabul ediliyor.
-Boş sepetle sipariş verilebiliyor.
-Test Türleri
+---
 
-Projede dört farklı test türü kullanılmıştır:
+## 📂 Proje Yapısı
 
-1. Unit Test / White Box Test
+```
+ECommerceApp/
+ ├── ECommerceApp/
+ │   ├── Core/
+ │   │   ├── Product.cs
+ │   │   ├── Cart.cs
+ │   │   ├── OrderService.cs
+ │   │   └── PaymentService.cs
+ │   └── Program.cs
+ │
+ ├── ECommerceApp.Tests/
+ │   ├── UnitTests/
+ │   ├── BlackBoxTests/
+ │   ├── GrayBoxTests/
+ │   └── IntegrationTests/
+ │
+ └── README.md
+```
 
-Kodun iç yapısı bilinerek yapılan testlerdir. Bu projede özellikle Cart sınıfının metotları test edilmiştir.
+---
 
-2. Black Box Test
+## 🧠 Sistem Senaryosu
 
-Kodun iç yapısına bakmadan, sadece giriş ve beklenen çıkışlara göre yapılan testlerdir. 
-Örneğin stokta olmayan ürünün sepete eklenmemesi gerektiği test edilmiştir.
+Kullanıcı:
 
-3. Gray Box Test
+* Ürün seçer
+* Sepete ekler
+* Sipariş oluşturur
+* Ödeme yapar
 
-Hem sistem davranışı hem de kısmen iç yapı bilinerek yapılan testlerdir. 
-Bu projede sipariş ve ödeme akışları gray box test olarak ele alınmıştır.
+---
 
-4. Integration Test
+## ⚠️ Bilerek Bırakılan Hatalar
 
-Birden fazla sınıfın birlikte doğru çalışıp çalışmadığını kontrol eden testlerdir. B
-u projede Cart, OrderService ve PaymentService birlikte test edilmiştir.
+Projede testlerin yakalayabilmesi için bazı hatalar bilinçli olarak eklenmiştir:
 
+1. Stokta olmayan ürün sepete eklenebiliyor.
+2. Sepette olmayan ürün silinmek istendiğinde hata fırlatılmıyor.
+3. Sepet toplamına fazladan 10 TL ekleniyor.
+4. Negatif ödeme kabul ediliyor.
+5. Boş sepet ile sipariş verilebiliyor.
 
-# Test Sonucu
+---
 
-Testler dotnet test komutu ile çalıştırılmıştır.
+## 🧪 Test Türleri
 
-Son test sonucunda:
+### 1. Unit Test (White Box)
 
+Kodun iç yapısı bilinerek yapılan testlerdir.
+
+### 2. Black Box Test
+
+Kodun iç yapısı bilinmeden sadece giriş-çıkışlara göre yapılan testlerdir.
+
+### 3. Gray Box Test
+
+Hem sistem davranışı hem de kısmen iç yapı bilinerek yapılan testlerdir.
+
+### 4. Integration Test
+
+Birden fazla bileşenin birlikte çalışmasını test eder.
+
+---
+
+## 📊 Test Sonuçları
+
+```
 Toplam Test: 12
-Başarılı Test: 6
-Başarısız Test: 6
-Atlanan Test: 0
+Başarılı: 6
+Başarısız: 6
+```
 
-Başarısız olan testler, projeye bilinçli olarak eklenen hataları başarıyla yakalamıştır.
+---
 
-# Sonuç
+## ❌ Başarısız Testler ve Nedenleri
 
-Bu projede basit bir e-ticaret sistemi üzerinden farklı test türleri uygulanmıştır. 
-Unit Test, Black Box Test, Gray Box Test ve Integration Test örnekleri yazılmıştır. 
-Sisteme bilerek eklenen hatalar testler sayesinde tespit edilmiştir. 
-Bu sayede test yazmanın yazılım geliştirme sürecindeki önemi gösterilmiştir.
+### 1. CalculateTotal_TwoProducts_ShouldReturnCorrectTotal
+
+Toplam hesaplama metodunda fazladan 10 TL eklenmektedir.
+
+### 2. AddProduct_OutOfStockProduct_ShouldNotBeAdded
+
+Stok kontrolü yapılmadan ürün sepete eklenmektedir.
+
+### 3. RemoveProduct_NotExistingProduct_ShouldThrowException
+
+Sepette olmayan ürün silinmek istendiğinde hata fırlatılmamaktadır.
+
+### 4. CalculateTotal_EmptyCart_ShouldReturnZero
+
+Boş sepette toplam 0 olması gerekirken 10 dönmektedir.
+
+### 5. PlaceOrder_EmptyCart_ShouldReturnFalse
+
+Sepet boş olsa bile sipariş verilebilmektedir.
+
+### 6. Payment_NegativeAmount_ShouldReturnFalse
+
+Negatif ödeme tutarı kabul edilmektedir.
+
+---
+
+## ✅ Sonuç
+
+Bu projede farklı test türleri uygulanmış ve sistemdeki hatalar testler sayesinde başarıyla tespit edilmiştir. Bu çalışma, yazılım geliştirme sürecinde test yazmanın önemini göstermektedir.
+
+Başarısız olan testler, sistemde bilinçli olarak bırakılan hataları ortaya çıkarmaktadır.
+
+---
